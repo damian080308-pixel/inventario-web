@@ -7,26 +7,9 @@ async function probar(){
 
         const r =
             await fetch(
-                API_URL,
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        action:
-                            "getData",
-
-                        payload:{}
-
-                    })
-
-                }
-            );
+  API_URL +
+  "?action=getData"
+);
 
         const data =
             await r.json();
