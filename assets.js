@@ -6,7 +6,7 @@ async function probar(){
     try{
 
         const r =
-            await fetch(
+            fetch(
   API_URL +
   "?action=getData"
 );
