@@ -3,47 +3,53 @@ const API_URL =
 
 async function probar(){
 
-    const r =
-        await fetch(
+    try{
 
-            API_URL,
+        const r =
+            await fetch(
+                API_URL,
+                {
+                    method:"POST",
 
-            {
-                method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                headers:{
-                    "Content-Type":
-                        "application/json"
-                },
+                    body:JSON.stringify({
 
-                body:JSON.stringify({
+                        action:
+                            "getData",
 
-                    action:
-                        "getData",
+                        payload:{}
 
-                    payload:{}
+                    })
 
-                })
+                }
+            );
 
-            }
+        const data =
+            await r.json();
 
+        console.log(data);
+
+        document
+            .getElementById(
+                "out"
+            )
+            .textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                );
+
+    }catch(error){
+
+        console.error(
+            error
         );
 
-    const data =
-        await r.json();
-
-    console.log(data);
-
-    document
-        .getElementById(
-            "out"
-        )
-        .textContent =
-
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+    }
 
 }
