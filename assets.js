@@ -110,21 +110,3 @@ window.close();
 
 }
 
-async codigo => {
-
-    if(window.opener){
-
-        window.opener.postMessage(
-            {
-                tipo:'QR',
-                codigo:codigo
-            },
-            '*'
-        );
-
-    }
-
-    await qrS*anner.stop();
-
-    window.close();*
-}
