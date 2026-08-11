@@ -29,10 +29,56 @@ async function iniciarQR(){
 
             async codigo=>{
 
-                alert(
-                    "QR detectado:\n\n" +
-                    codigo
-                );
+if(window.opener){
+
+    window.opener.postMessage(
+        {
+            tipo:"QR",
+            codigo:codigo
+        },
+        "*"
+    );
+
+}
+
+window.close();
+
+                window.addEventListener(
+
+    "message",
+
+    e=>{
+
+        if(
+            !e.data ||
+            e.data.tipo !== "QR"
+        ){
+            return;
+        }
+
+        const codigo =
+            String(
+                e.data.codigo || ""
+            )
+            .trim()
+            .toUpperCase();
+
+        app.toggleSearchBar();
+
+        document
+            .getElementById(
+                "search-input"
+            )
+            .value =
+                codigo;
+
+        inventory.buscar(
+            codigo
+        );
+
+    }
+
+);
 
                 await qrScanner.stop();
 
