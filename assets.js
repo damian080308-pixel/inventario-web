@@ -1,37 +1,64 @@
-const API_URL =
-    "https://script.google.com/macros/s/AKfycbycmn3mcgeVP3TqbpVU79udt_m3j-lCm6bN8ac-KgzZLnK7gSPzXRyABTUemKJ2l65X/exec";
+let qrScanner = null;
 
-async function probar(){
+async function iniciarQR(){
+
+    if(qrScanner){
+
+        return;
+
+    }
+
+    qrScanner =
+        new Html5Qrcode(
+            "qr-reader"
+        );
 
     try{
 
-        const r =
-            fetch(
-  API_URL +
-  "?action=getData"
-);
+        await qrScanner.start(
 
-        const data =
-            await r.json();
+            {
+                facingMode:
+                    "environment"
+            },
 
-        console.log(data);
+            {
+                fps:10,
+                qrbox:250
+            },
 
-        document
-            .getElementById(
-                "out"
-            )
-            .textContent =
-                JSON.stringify(
-                    data,
-                    null,
-                    2
+            async codigo=>{
+
+                alert(
+                    "QR detectado:\n\n" +
+                    codigo
                 );
+
+                await qrScanner.stop();
+
+                qrScanner = null;
+
+                document
+                    .getElementById(
+                        "qr-reader"
+                    )
+                    .innerHTML = "";
+
+            },
+
+            ()=>{}
+
+        );
 
     }catch(error){
 
-        console.error(
-            error
+        console.error(error);
+
+        alert(
+            error.message
         );
+
+        qrScanner = null;
 
     }
 
