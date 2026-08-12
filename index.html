@@ -5,31 +5,40 @@
 
 <meta charset="utf-8">
 
-<title>QR Test</title>
+<meta
+    name="viewport"
+    content="
+        width=device-width,
+        initial-scale=1,
+        maximum-scale=1,
+        user-scalable=no
+    "
+>
+
+<title>QR Scanner</title>
 
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
 <style>
 
+html,
 body{
 
-    font-family:Arial;
-    text-align:center;
-    margin:20px;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:black;
 
 }
-
+<div id="mensaje">
+    Apunte la cámara al código QR
+</div>
 #qr-reader{
 
-    width:320px;
-    margin:auto;
-
-}
-
-button{
-
-    padding:10px 20px;
-    margin-bottom:20px;
+    width:100vw;
+    height:100vh;
 
 }
 
@@ -38,12 +47,6 @@ button{
 </head>
 
 <body>
-
-<h1>QR Test</h1>
-
-<button onclick="iniciarQR()">
-    Escanear QR
-</button>
 
 <div id="qr-reader"></div>
 
