@@ -1,12 +1,6 @@
 let qrScanner = null;
 
-async function iniciarQR(){
-
-    if(qrScanner){
-
-        return;
-
-    }
+window.onload = async ()=>{
 
     qrScanner =
         new Html5Qrcode(
@@ -24,71 +18,29 @@ async function iniciarQR(){
 
             {
                 fps:10,
-                qrbox:250
+                qrbox:300
             },
 
-            async codigo=>{
+            async codigo => {
 
-if(window.opener){
+                if(
+                    window.opener
+                ){
 
-    window.opener.postMessage(
-        {
-            tipo:"QR",
-            codigo:codigo
-        },
-        "*"
-    );
+                    window.opener
+                    .postMessage(
+                        {
+                            tipo:'QR',
+                            codigo
+                        },
+                        '*'
+                    );
 
-}
-
-window.close();
-
-                window.addEventListener(
-
-    "message",
-
-    e=>{
-
-        if(
-            !e.data ||
-            e.data.tipo !== "QR"
-        ){
-            return;
-        }
-
-        const codigo =
-            String(
-                e.data.codigo || ""
-            )
-            .trim()
-            .toUpperCase();
-
-        app.toggleSearchBar();
-
-        document
-            .getElementById(
-                "search-input"
-            )
-            .value =
-                codigo;
-
-        inventory.buscar(
-            codigo
-        );
-
-    }
-
-);
+                }
 
                 await qrScanner.stop();
 
-                qrScanner = null;
-
-                document
-                    .getElementById(
-                        "qr-reader"
-                    )
-                    .innerHTML = "";
+                window.close();
 
             },
 
@@ -98,15 +50,14 @@ window.close();
 
     }catch(error){
 
-        console.error(error);
-
-        alert(
-            error.message
+        console.error(
+            error
         );
 
-        qrScanner = null;
+        alert(
+            "No se pudo abrir la cámara"
+        );
 
     }
 
-}
-
+};
